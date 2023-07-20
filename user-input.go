@@ -9,13 +9,13 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-func GetUserInput(displayMessage string) string {
+func GetUserInput(message string, showMessageAndInput bool) string {
 	if err := keyboard.Open(); err != nil {
 		log.Fatal("Unable to use the keyboard.")
 	}
 	defer keyboard.Close()
 
-	fmt.Print(displayMessage)
+	fmt.Print(message)
 	
 	var input string
 	var cursorIndex int
@@ -23,7 +23,7 @@ func GetUserInput(displayMessage string) string {
 	for {
 		char, key, err := keyboard.GetKey()
 		if err != nil {
-			panic(err)
+			log.Fatal("Could not get the key pressed.")
 		}
 
 		if key == keyboard.KeyEsc || key == keyboard.KeyCtrlC {
@@ -64,12 +64,17 @@ func GetUserInput(displayMessage string) string {
 		}
 
 		clearLine()
-		fmt.Print("\r" + displayMessage + input + " ")
+		fmt.Print("\r" + message + input + " ")
 		moveCursorBack(len(input) - cursorIndex + 1)
+	}
+
+	if (showMessageAndInput) {
+		fmt.Println("\n" + message + input)
 	}
 
 	return input
 }
+
 
 func clearLine() {
 	fmt.Print("\r" + strings.Repeat(" ", 60) + "\r")
