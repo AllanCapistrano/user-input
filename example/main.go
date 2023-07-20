@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	input := userinput.GetUserInput("Digite o texto para ser exibido: ")
+	input := userinput.GetUserInput("Enter the text to be displayed: ")
 
-	fmt.Println("\nO usuário digitou: " + input)
+	fmt.Println("\nInput: " + input)
 }
