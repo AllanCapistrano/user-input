@@ -9,6 +9,8 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
+// Show the message and wait for user input. You can print the message with
+// user input by passing true to showMessageAndInput.
 func GetUserInput(message string, showMessageAndInput bool) string {
 	if err := keyboard.Open(); err != nil {
 		log.Fatal("Unable to use the keyboard.")
@@ -16,7 +18,7 @@ func GetUserInput(message string, showMessageAndInput bool) string {
 	defer keyboard.Close()
 
 	fmt.Print(message)
-	
+
 	var input string
 	var cursorIndex int
 
@@ -68,18 +70,20 @@ func GetUserInput(message string, showMessageAndInput bool) string {
 		moveCursorBack(len(input) - cursorIndex + 1)
 	}
 
-	if (showMessageAndInput) {
+	if showMessageAndInput {
 		fmt.Println("\n" + message + input)
 	}
 
 	return input
 }
 
-
+// Clear the current line before showing the message and user input again.
 func clearLine() {
 	fmt.Print("\r" + strings.Repeat(" ", 60) + "\r")
 }
 
+// Moves the cursor to the correct position on the screen before printing the
+// updated text.
 func moveCursorBack(steps int) {
 	if steps > 0 {
 		fmt.Print("\033[" + fmt.Sprintf("%d", steps) + "D")
