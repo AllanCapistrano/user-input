@@ -71,7 +71,8 @@ func GetUserInput(message string, showMessageAndInput bool) string {
 	}
 
 	if showMessageAndInput {
-		fmt.Println("\n" + message + input)
+		clearLine()
+		fmt.Println(message + input)
 	}
 
 	return input
